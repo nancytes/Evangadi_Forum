@@ -19,7 +19,7 @@ async function register(req, res) {
 			[username, email]
 		);
 		if (user.length > 0) {
-			return res.status(StatusCodes.BAD_REQUEST).json("user already register"); // Corrected reference to StatusCodes
+			return res.status(StatusCodes.BAD_REQUEST).json("user already registered"); // Corrected reference to StatusCodes
 		}
 		if (password.length <= 8) {
 			return res
