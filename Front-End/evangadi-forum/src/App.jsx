@@ -57,7 +57,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<SharedLalyout />}>
-        {/* <Route path="/" element={<LogIn />} /> */}
+        <Route path="/" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} /> 
         <Route path="/home" element={<Home />} />
         <Route path="/askquestion" element={<AskQuestion />} />
