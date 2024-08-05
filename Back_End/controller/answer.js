@@ -1,7 +1,3 @@
-const { StatusCodes } = require("http-status-codes"); // Corrected import
-
-const { dbConnectionPool, dbConnectionPromise } = require("../db/dbConfig");
-
 async function GetAnswersByQuestionId(req, res) {
 	const questionId = req.params.questionId;
 	try {
@@ -17,9 +13,6 @@ async function GetAnswersByQuestionId(req, res) {
 		}
 	} catch (error) {
 		console.error("Error fetching question detail:", error);
-		return res
-			.status(StatusCodes.INTERNAL_SERVER_ERROR)
-			.json({ msg: "Something went wrong" });
-	}
-}
+
 module.exports = { GetAnswersByQuestionId };
+
