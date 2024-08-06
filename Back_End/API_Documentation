@@ -1,0 +1,390 @@
+API Documentation for Evangadi Forum
+
+
+Authentication Middleware
+Endpoint: /api/user/checkUser
+Method: GET
+Description: Checks the current authenticated user's information.
+Request Headers
+Authorization: Bearer token
+Successful Response
+Status Code: 200 OK
+Content-Type: application/json
+{
+  "message": "Valid user",
+  "username": “Kebede”,
+  “userid”:”123”
+}
+
+Error Responses
+Status Code: 401 Unauthorized
+Description: Authentication credentials were missing or incorrect.
+{
+  "error": "Unauthorized",
+  "message": "Authentication invalid"
+}
+
+
+
+
+Sign-up
+Endpoint: /api/user/register
+Method: POST
+Description: Registers a new user.
+Request Body
+username (string): The username of the user.
+first_name (string): The first name of the user.
+last_name (string): The last name of the user.
+email (string): The email of the user.
+password (string): The password of the user.
+Successful Response
+Status Code: 201 Created
+Content-Type: application/json
+{
+  "message": "User registered successfully"
+}
+
+Error Responses
+Status Code: 400 Bad Request
+Description: Missing or invalid fields.
+{
+   "error": "Bad Request",
+  "message": "Please provide all required fields"
+}
+Status Code: 400 Bad Request
+Description: Missing or invalid fields.
+{
+  "error": "Bad Request",
+  "message": "Password must be at least 8 characters"
+}
+Status Code: 409 Conflict
+Description: A user with the provided username or email already exists.
+{
+  "error": "Conflict",
+  "message": "User already existed"
+}
+Status Code: 500 Internal Server Error
+Description:An unexpected error occurred.
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred."
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Login
+Endpoint: /api/user/login
+Method: POST
+Description: Authenticates a user and returns a JWT token.
+Request Body
+email(string): The email of the user.
+password (string): The password of the user.
+Successful Response
+Status Code: 200 OK
+Content-Type: application/json
+{
+  "message": "User login successful",
+  "token": "jwt_token"
+}
+
+Error Responses
+Status Code: 401 Unauthorized
+Description: Invalid credentials.
+{
+  "error": "Unauthorized",
+  "message": "Invalid username or password"
+}
+Status Code: 400 Bad Request
+Description: Missing or invalid fields.
+{
+  "error": "Bad Request",
+  "message": "Please provide all required fields"
+}
+
+Status Code: 500 Internal Server Error
+Description:An unexpected error occurred.
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred."
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Get Answers for a Question
+Endpoint: api/answer/:question_id
+Method: GET
+Description: Retrieves answers for a specific question.
+URL Parameters
+question_id (integer): The unique identifier of the question.
+Successful Response
+Status Code: 200 OK
+Content-Type: application/json
+{
+  "answers": [
+    {
+      "answer_id": 1,
+      "content": "This is an answer.",
+      "user_name": ‘Abebe’,
+      "created_at": "2023-06-30T12:00:00Z"
+    },
+    {
+      "answer_id": 2,
+      "content": "This is another answer.",
+      "user_name": ‘Almaz’,
+      "created_at": "2023-06-30T13:00:00Z"
+    }
+  ]
+}
+
+Error Responses
+Status Code: 404 Not Found
+Description: The specified question was not found.
+{
+  "error": "Not Found",
+  "message": "The requested question could not be found."
+}
+Status Code: 500 Internal Server Error
+Description:An unexpected error occurred.
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred."
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Post Answers for a Question
+Endpoint: api/answer
+Method: POST
+Description: Submits an answer for a specific question.
+Request Body
+questionid (number): The id for a specific question.
+answer (string): The answer for a specific question.
+Successful Response
+Status Code: 201 Created
+Content-Type: application/json
+{
+  "message": "Answer posted successfully"
+}
+Error Responses
+Status Code: 400 Bad Request
+Description: Missing or invalid fields.
+{
+  "error": "Bad Request",
+  "message": "Please provide answer"
+}
+
+Status Code: 500 Internal Server Error
+Description: An unexpected error occurred.
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred."
+}
+
+
+
+Get All Questions
+Endpoint: api/question
+Method: GET
+Description: Fetches all questions.
+Successful Response
+Status Code: 200 OK
+Content-Type: application/json
+json
+Copy code
+{
+  "questions": [
+    {
+      "question_id": 1,
+      "title": "First Question",
+      "content": "This is the first question.",
+      "user_name": ‘Sisay’,
+      "created_at": "2023-06-30T12:00:00Z"
+    },
+    {
+      "question_id": 2,
+      "title": "Second Question",
+      "content": "This is the second question.",
+      "user_name": ‘Sara’,
+      "created_at": "2023-06-30T13:00:00Z"
+    }
+  ]
+}
+
+Error Responses
+Status Code: 404 Not Found
+Description: No questions found.
+{
+  "error": "Not Found",
+  "message": "No questions found."}
+Status Code: 500 Internal Server Error
+Description: An unexpected error occurred.
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred."
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Get Single Question
+Endpoint: api/question/:question_id
+Method: GET
+Description: Retrieves details of a specific question.
+URL Parameters
+question_id (integer): The unique identifier of the question.
+Successful Response
+Status Code: 200 OK
+Content-Type: application/json
+{
+  "question": {
+    "question_id": 1,
+    "title": "First Question",
+    "content": "This is the first question.",
+    "user_id": 123,
+    "created_at": "2023-06-30T12:00:00Z"
+  }
+}
+
+Error Responses
+Status Code: 404 Not Found
+Description: The specified question was not found.
+{
+  "error": "Not Found",
+  "message": "The requested question could not be found."
+}
+
+Status Code: 500 Internal Server Error
+Description: An unexpected error occurred.
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred."
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Post Question
+Endpoint: api/question
+Method: POST
+Description: Creates a new question.
+Request Body
+title (string): The title of the question.
+description (string): The description of the question.
+Successful Response
+Status Code: 201 Created
+Content-Type: application/json
+{
+  "message": "Question created successfully"
+}
+Error Responses
+Status Code: 400 Bad Request
+Description: Missing or invalid fields.
+json
+Copy code
+{
+  "error": "Bad Request",
+  "message": "Please provide all required fields"
+}
+Status Code: 500 Internal Server Error
+Description: An unexpected error occurred.
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred."
+}
