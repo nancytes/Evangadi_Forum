@@ -9,6 +9,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "back_end": "file:",
     "express": "^4.19.2"
   }
 }
