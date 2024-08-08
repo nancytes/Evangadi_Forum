@@ -1,12 +1,13 @@
-const { StatusCodes } = require("http-status-codes"); 
-
 const dbconnection = require("../db/dbConfig");
+const { StatusCodes } = require("http-status-codes");
 
 async function createAnswer(req, res) {
-    const { userid, questionid, answer } = req.body;
-    
-    if (!userid || !questionid || !answer) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Please enter all information" });
+    const { answer, questionid, userid } = req.body;
+
+    if (!answer || !questionid || !userid) {
+        return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Please provide all required value. " });
     }
 
     try {
@@ -24,8 +25,8 @@ async function createAnswer(req, res) {
         .json({ msg: "Something went wrong try again later" });
     }
 }
-
-async function GetAnswersByQuestionId(req,res){
+async function GetAnswersByQuestionId(req, res) {
+  // const { questionid } = req.body;
     const questionId = req.params.questionId;
     if (!questionId) {
         return res
@@ -44,7 +45,5 @@ async function GetAnswersByQuestionId(req,res){
     }
 }
 
-module.exports = {
-    createAnswer,
-    GetAnswersByQuestionId
-};
+module.exports = { createAnswer,GetAnswersByQuestionId };
+
