@@ -1,0 +1,18 @@
+.first-name {
+    width: 39.5% !important;
+    margin-right: 6px !important;
+}
+
+.last-name {
+    width: 39.5% !important;
+    
+}
+
+.invalid {
+    border: 1px solid #e01e5a !important;
+    background: #fce9ef !important;
+}
+
+.hide {
+    margin-right: -25px;
+}
