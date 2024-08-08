@@ -134,3 +134,11 @@ async function getQuestionDetail(req, res) {
 			.json({ msg: "Something went wrong" });
 	}
 }
+
+module.exports = {
+	createQuestion,
+	deleteQuestion,
+	updateQuestion,
+	allQuestions,
+	getQuestionDetail,
+};
