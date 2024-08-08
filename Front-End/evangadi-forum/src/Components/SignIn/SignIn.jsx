@@ -99,6 +99,7 @@ function SignIn({ toggleForm }) {
           }}
           style={{ padding: "5px" }}
         />
+        <div className="signinfas">
         <i onClick={togglePasswordVisibility}>
           {passwordVisible ? (
             <i className="fas fa-eye-slash" />
@@ -106,6 +107,7 @@ function SignIn({ toggleForm }) {
             <i className="fas fa-eye" />
           )}
         </i>
+        </div>
         <button className="login__signInButton " type="submit">
           Submit
         </button>
