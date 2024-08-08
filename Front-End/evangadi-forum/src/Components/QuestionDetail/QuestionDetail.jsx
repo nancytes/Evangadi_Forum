@@ -1,91 +1,154 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../Context/UserContext';
-import axios from '../../Axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import "./QuestionDetail.css";
+import { useParams } from 'react-router-dom';
+import { QuestionContext } from '../../Context/QuestionContext';
+import axios from "../axios";
+import { userProvider } from '../../Context/UserProvider';
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom"
 
+function QuestionDetail() {
+  const {
+    register,
+    trigger,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
 
-const AskQuestion = () => {
-    const navigate = useNavigate()
-    const [form,setForm] = useState({})
-    const [userData, setUserData] = useContext(UserContext);
+  const token = localStorage.getItem("token");
+  const [user, setUser] = useContext(userProvider);
 
-    console.log(userData)
-    
-    
-
-    const handleChange = (e) => {
-      setForm({...form,[e.target.name]:[e.target.value]})
-    }
-
-    const handleSubmit = async (e) => {
-          e.preventDefault()
-          try {
-            await axios.post(
-              "/api/questions/askQuestions",
-              {
-                title: form.title,
-                description: form.description,
-                userid: userData.userid,
-              },
-              {
-                headers: {
-                  Authorization: "Bearer " + userData.token,
-                },
-              }
-            );
-            // setForm('');
-            alert("Question posted successfully.");
-            navigate('/home')
-          } catch (err) {
-             console.log(err);
-             alert(err);
+  const { questions } = useContext(QuestionContext);
+  const { questionid } = useParams();
+  const [dbAnswer, setdbAnswer] = useState([]);
+  
+  useEffect(() => {
+    async function getAns() {
+      try {
+        const ans = await axios.get(
+          `/answers/all-answers/${questionid}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
+        );
+        setdbAnswer(ans.data.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
- useEffect(() => {
-   if (!userData.userid) navigate("/");
- }, [userData.userid, navigate]);
+
+    if (questionid) {
+      getAns();
+    }
+  }, [questionid, token]);
+
+  const selectedQuestion = questions.find(
+    (ques) => ques.questionid === questionid
+  );
+
+  async function handleClick(data) {
+    try {
+      await axios.post(
+        "/answers/create",
+        {
+          answer: data.answer,
+          questionid: questionid,
+          userid: user.userId,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      const ans = await axios.get(
+        `/answers/all-answers/${questionid}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Update the dbAnswer state with the fetched answers
+      setdbAnswer(ans.data.data);
+      setValue("answer", ""); // Clear the textarea after posting
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
-    <div>
-      <div className="mt-6">
-        <h1 className="text-2xl font-mono font-bold mb-3 mx-[20%] ">
-          Steps To Write A Good Questions
-        </h1>
-        <ul className="mx-[25%] list-disc font-bold font-mono">
-          <li>Summerize your Problem in One Line Title</li>
-          <li>Describe Problem In More Detail</li>
-          <li>Describe what You Tried And What You Expected To Happen</li>
-          <li>Review Your Question And Post It To The Site</li>
-        </ul>
+    <div className="container top">
+      <div className="card mb-4">
+        <div className="card-body">
+          <h4 className="card-title">Question</h4>
+          <h5 className="card-subtitle mb-2 text-muted">{selectedQuestion?.title}</h5>
+          <p className="card-text">{selectedQuestion?.description}</p>
+        </div>
       </div>
 
-      <div className=" m-10 px-[190px] py-2 rounded-md shadow-xl">
-        <div className="text-center m-2 text-2xl font-mono font-extrabold">
-          <h1>Ask Your Question</h1>
+      <div className="card mb-4">
+        <div className="card-body">
+          <h4 className="card-title">Answers From The Community</h4>
         </div>
+      </div>
 
-        <div className="">
-          <form onSubmit={handleSubmit}>
-            <input
-              name="title"
-              onChange={handleChange}
-              className="w-[100%] px-[20px] py-2 border border-[#9a9696] outline-none rounded-md m-3"
-              type="text"
-              placeholder="Title"
-              //   size={100}
-            />
-            <textarea
-              className="w-[100%]  p-3 border border-[#9a9696] outline-none rounded-md m-3"
-              name="description"
-              onChange={handleChange}
-              rows="5"
-              placeholder="Question Description..."
-            ></textarea>
+      {dbAnswer.map((answerData, index) => (
+        <div className="card mb-3 info_question" key={index}>
+          <div className="card-body row">
+            <div className="col-md-4 d-flex flex-column align-items-center">
+              <i className="fas fa-user-circle fa-3x user mb-2" />
+              <p className="username">{answerData.username}</p>
+            </div>
+            <div className="col-md-8">
+              <p className="answer-text">{answerData.answer}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      <div className="card answer text-center mb-5">
+        <div className="card-body">
+          <h2 className="pt-3">Answer The Top Question.</h2>
+          <Link to="/home" style={{textDecoration: "none"}}>
+                <small style={{ color: '#b7b3b4 ', fontSize: '20px',  }}>
+                  Go to Question Page
+                </small>
+                </Link>
+
+          <form onSubmit={handleSubmit(handleClick)}>
+            <div className="form-group">
+              <textarea
+                className={`form-control w-75 mx-auto ${errors.answer ? "is-invalid" : ""}`}
+                rows="6"
+                placeholder="Your answer..."
+                {...register("answer", {
+                  required: "Answer is required",
+                  maxLength: {
+                    value: 300,
+                    message: "Maximum allowed length is 300",
+                  },
+                })}
+                onKeyUp={() => {
+                  trigger("answer");
+                }}
+              />
+              {errors.answer && (
+                <div className="invalid-feedback">
+                  {errors.answer.message}
+                </div>
+              )}
+            </div>
             <button
-              className="bg-[#516CF0] mb-2 ml-3 items-start justify-start flex px-[50px] sm:px-[75px] py-2 text-white hover:bg-[#FE8402] rounded-md"
               type="submit"
+              className="btn btn-success mt-3"
             >
-              Post
+              Post Your Answer
             </button>
           </form>
         </div>
@@ -94,4 +157,4 @@ const AskQuestion = () => {
   );
 }
 
-export default AskQuestion
+export default QuestionDetail;

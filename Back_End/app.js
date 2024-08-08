@@ -6,12 +6,12 @@ require("dotenv").config()
 app.use(cors())
 
 //db connection
-const dbConnection = require('./db/dbConfig');
+const dbConnection = require('./db/dbconfig');
 
 //user routes middleware file
-const userRoutes = require('./routes/userRoutes');
-const questionRoute = require('./routes/questionRoutes');
-const answerRoute = require('./routes/answerRoutes');
+const userRoutes = require('./routes/userRoute');
+const questionRoute = require('./routes/questionRoute');
+const answerRoute = require('./routes/answerRoute');
 const authMiddleware = require('./middleware/authMiddleware');
 
 //json middleware to extract to json data
