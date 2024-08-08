@@ -61,7 +61,7 @@ function AskQuestion() {
           <div>
             <Link to="/home" style={{ textDecoration: "none" }}>
               <small
-                style={{ display: "block", color: "green", fontSize: "20px" }}
+                style={{ display: "block", color: "lightgreen", fontSize: "20px" }}
               >
                 Question posted successfully. Redirecting to home page...
               </small>

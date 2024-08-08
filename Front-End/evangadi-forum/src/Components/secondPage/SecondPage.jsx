@@ -33,13 +33,13 @@ function SecondPage() {
 
           <div className="info col col-md pb-sm-5">
             <Link to ="" className="about" target="_blank" >About</Link>
-            <h1 className="network pb-3">Evangadi Networks</h1>
+            <h1 className="network pb-3 hi">Evangadi Networks</h1>
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, accusantium soluta? Vitae consequuntur repellat nam hic expedita. Distinctio enim tempore eius similique animi impedit, maxime eaque dolores vero, deserunt odio aspernatur porro temporibus possimus eligendi nisi eum, ex voluptatem ullam.
+            No matter what stage of life you are in, whether you’re just starting elementary school or being promoted to CEO of a Fortune 500 company, you have much to offer to those who are trying to follow in your footsteps.
             </p>
 
             <p className="pl">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, aperiam tempore. Itaque quod ducimus at, tenetur sit repudiandae! Repellat, nesciunt.
+            Wheather you are willing to share your knowledge or you are just looking to meet mentors of your own, please start by joining the network here.
             </p>
             
             <Link to="/how-it-works">

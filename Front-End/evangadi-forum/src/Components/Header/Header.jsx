@@ -20,7 +20,7 @@ function Header({ logOut }) {
 	return (
 		<Navbar expand="lg" className="navbar" fixed="top" variant="dark">
 			<Container>
-				<Navbar.Brand as={Link} to="/home">
+				<Navbar.Brand as={Link} to="/">
 					<img src={logo} alt="Logo" className="navbar-logo" />
 				</Navbar.Brand>
 				<Navbar.Toggle
@@ -36,7 +36,7 @@ function Header({ logOut }) {
 				</Navbar.Toggle>
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="ms-auto">
-						<Nav.Link as={Link} to="/home" className="black link blakkk">
+						<Nav.Link as={Link} to="/" className="black link blakkk">
 							Home
 						</Nav.Link>
 						<Nav.Link as={Link} to="/how-it-works" className="black link">

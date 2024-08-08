@@ -6,3 +6,94 @@
     list-style-type: disc; 
     padding-left: 20px; 
 }
+
+
+/* General Container Styling */
+/* .top {
+    background: linear-gradient(310deg, #1e3a8a, #ffffff); /* Gradient background for the entire page */
+    min-height: 100vh;
+    padding: 40px;
+    color: #333;
+  } */
+  
+  /* Styling for the main container */
+  .container {
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Header styling */
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+  }
+  
+  /* List styling for instructions */
+  ul {
+    margin: 20px 0;
+    padding-left: 20px;
+    list-style-type: none;
+  }
+  
+  ul li {
+    margin-bottom: 10px;
+  }
+  
+  /* Form styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Textarea styling */
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.7); /* Semi-transparent background for textareas */
+    resize: vertical;
+  }
+  
+  textarea.invalid {
+    border-color: #e33f00;
+  }
+  
+  textarea::placeholder {
+    color: #888;
+  }
+  
+  /* Error message styling */
+  small.text-danger {
+    color: #e33f00;
+  }
+  
+  /* Button styling */
+  button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #218838;
+  }
+  
+  /* Success message styling */
+  .success-message {
+    color: green;
+    font-size: 1em;
+    margin-top: 20px;
+  }
+  
