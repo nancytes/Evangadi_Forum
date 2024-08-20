@@ -61,15 +61,7 @@
     background: #fce9ef !important; /* Light red background */
   }
   
-  /* Password visibility toggle icon */
-  /* i.fas {
-    cursor: pointer;
-    font-size: 1.2em;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-  } */
+
   
   /* Button styling */
   button.login__signInButton {

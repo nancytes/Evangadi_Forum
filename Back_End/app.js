@@ -12,10 +12,13 @@ const dbConnection = require('./db/dbconfig');
 const userRoutes = require('./routes/userRoute');
 const questionRoute = require('./routes/questionRoute');
 const answerRoute = require('./routes/answerRoute');
+const installRoute = require('./routes/installRoute')
 const authMiddleware = require('./middleware/authMiddleware');
 
 //json middleware to extract to json data
 app.use(express.json());
+
+app.use('/', installRoute)
 
 //user routes middleware
 app.use("/api/users", userRoutes);

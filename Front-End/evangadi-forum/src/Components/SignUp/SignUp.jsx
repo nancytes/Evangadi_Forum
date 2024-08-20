@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SignUp.css";  // Ensure the correct path
+import "./SignUp.css"; 
 import axios from "../axios.js";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
