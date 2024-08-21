@@ -29,10 +29,13 @@ app.use("/api/answers", answerRoute)
 
 // const port = 3333;
 const port = process.env.SERVER_PORT || 3000;
-app.use((req, res, next) => {
-    res.status(404).json({ msg: 'Resource not found error.' });
-});
+// app.use((req, res, next) => {
+//     res.status(404).json({ msg: 'Resource not found error.' });
+// });
 
+app.get('/', (req, res)=>{
+    res.send('Api is working')
+})
 // Global error handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
