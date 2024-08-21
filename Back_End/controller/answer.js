@@ -1,46 +1,48 @@
-const { StatusCodes } = require("http-status-codes"); 
-
-const { dbConnectionPool, dbConnectionPromise } = require('../db/dbConfig');
+const dbconnection = require("../db/dbconfig");
+const { StatusCodes } = require("http-status-codes");
 
 async function createAnswer(req, res) {
-    const { userid, questionid, answer } = req.body;
-    
-    if (!userid || !questionid || !answer) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Please enter all information" });
+    const { answer, questionid, userid } = req.body;
+
+    if (!answer || !questionid || !userid) {
+        return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Please provide all required value. " });
     }
 
     try {
-        const query = "INSERT INTO answers (userid, questionid, answer) VALUES (?, ?, ?)";
-        const result = await dbConnectionPromise.query(query, [userid, questionid, answer]);
-        
-        if (result) {
-            return res.status(StatusCodes.CREATED).json({ msg: "Answer created successfully" });
-        } else {
-            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Failed to create answer" });
-        }
+        await dbconnection.query(
+        "INSERT INTO answers(userid,questionid,answer) VALUES(?,?,?)",
+        [userid, questionid, answer]
+        );
+        return res
+        .status(StatusCodes.CREATED)
+        .json({ msg: "Answer posted successfully" });
     } catch (error) {
-        console.error("Error creating answer:", error);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Something went wrong" });
+        console.log("answer posted error is", error);
+        return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ msg: "Something went wrong try again later" });
     }
 }
+async function GetAnswersByQuestionId(req, res) {
+  // const { questionid } = req.body;
+    const questionId = req.params.questionId;
+    if (!questionId) {
+        return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Please enter questionid " });
+    }
 
-async function GetAnswersByQuestionId(req,res){
-    const questionId= req.params.questionId;
     try {
-        const query="SELECT q.*,u.username FROM answers q INNER JOIN users u ON q.userid=u.userid WHERE questionid = ?";
-        const result =await dbConnectionPromise.query(query,[questionId])
-        if (result.length > 0) {
-            return res.status(StatusCodes.OK).json(result[0]);
-        } else {
-            return res.status(StatusCodes.NOT_FOUND).json({ msg: "Question not found" });
-        }
+        const response = await dbconnection.query(
+            "SELECT answers.answer, users.username FROM answers  INNER JOIN users ON answers.userid = users.userid WHERE answers.questionid = ? ORDER BY answers.answerid DESC",
+            [questionId]
+        );
+        return res.status(StatusCodes.OK).json({ data: response[0] });
     } catch (error) {
-        console.error("Error fetching question detail:", error);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Something went wrong" });
+        console.log("from get answer", error);
     }
 }
 
-module.exports = {
-    createAnswer,
-    GetAnswersByQuestionId
-};
+module.exports = { createAnswer,GetAnswersByQuestionId };

@@ -57,3 +57,127 @@ textarea {
     border: 1px solid #e01e5a !important;
     background: #fce9ef !important;
 }
+
+
+
+
+/* General Container Styling */
+.top {
+    background: linear-gradient(310deg, #334a89, #c9c5c5); /* Gradient background for the entire page */
+    min-height: 100vh;
+    padding: 40px;
+    color: #333;
+  }
+  
+  /* Card Styling */
+  .card {
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    padding: 20px; /* Added padding for better content spacing */
+  }
+  
+  .card-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .card-subtitle {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .card-text {
+    font-size: 1.2em;
+    color: #666;
+  }
+  
+  /* Answer Display Styling */
+  .info_question {
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background for answer cards */
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+  }
+  
+  .user {
+    color: #555;
+  }
+  
+  .username {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .answer-text {
+    font-size: 1.1em;
+    color: #444;
+  }
+  
+  /* Form Styling */
+  .form-group {
+    margin-top: 20px;
+  }
+  
+  textarea.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.7); /* Semi-transparent background for textarea */
+    resize: vertical;
+  }
+  
+  textarea.form-control.is-invalid {
+    border-color: #e33f00;
+  }
+  
+  textarea::placeholder {
+    color: #888;
+  }
+  
+  .invalid-feedback {
+    color: #e33f00;
+    font-size: 0.9em;
+  }
+  
+  /* Button Styling */
+  button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #218838;
+  }
+  
+  /* Link Styling */
+  a {
+    color: #b7b3b4;
+    font-size: 1em;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Success Message */
+  .success-message {
+    color: green;
+    font-size: 1em;
+    margin-top: 20px;
+  }
+  

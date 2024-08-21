@@ -8,7 +8,7 @@ const {
   deleteQuestion,
   updateQuestion,
   getQuestionDetail,
-} = require("../controller/question");
+} = require("../controller/question.js");
 
 // use get for getting question detail
 router.get("/detail/:questionId", authMiddleware, getQuestionDetail);
